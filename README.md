@@ -1,6 +1,6 @@
 # FSDI-113-Cempetency-Rep-Kanban
 
 ## Heroku app link. Issue with: Error 500 happens when debug=False. 
-https://git.heroku.com/obscure-scrubland-74064.git
+https://lit-ravine-06328.herokuapp.com/
 # FSDI-Cempetency-Rep-Kanban
 # FSDI-Cempetency-Rep-Kanban
