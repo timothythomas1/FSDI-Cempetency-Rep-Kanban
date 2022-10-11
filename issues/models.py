@@ -1,8 +1,16 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
+from django import forms
+from django.contrib.auth.models import User, Group, AbstractBaseUser, AbstractUser
 
 
+class UserProfileForm(forms.ModelForm):
+    group = forms.ModelChoiceField(queryset=Group.objects.all(),
+                                    required=False)
+    class Meta:
+        model = User
+        fields = ['first_name', 'last_name', 'email', 'group']
 # Create your models here.
 class Status(models.Model):
     name = models.CharField(max_length=256)
@@ -24,9 +32,10 @@ class Urgency(models.Model):
     def __str__(self):
         return self.name
 
+
+
 # Now create a custom migration for status to communicate to. 
 # We are not putting this into the Status class due to later maintainability concerns. (Refactoring?)
-
 class Issue(models.Model):
     title = models.CharField(max_length=256)
     summary = models.CharField(max_length=512)
@@ -61,6 +70,9 @@ class Issue(models.Model):
         blank=True,
         related_name='assignee' # django will create a different name to avoid collisions when running > python3 manage.py makemigrations
     )
+
+# class Role(models.Model):
+#     role:
 
 def __str__(self):
     return self.title
