@@ -6,19 +6,23 @@
 
 {% block content %}
 <ul>
+    {% if issue_list %}
     <h1>All Tasks</h1>
-    
+
     {% for issue in issue_list %}
 
 
     <div class="card box">
-        <div id="status"><strong>({{ issue.status }})</strong></div>
+        <div id="status">
+            <strong> {{ issue.title }} </strong>
+            <h6 class="card-subtitle mb-2 ">( {{ issue.summary }} )</h6>
+        </div>
         <div class="card-body">
-            <h4 class="card-title">{{ issue.title }}</h4>
-            <h6 class="card-subtitle mb-2 text-muted">{{ issue.summary }}</h6>
+
+            <div><strong>Created by:</strong> <a href="{% url 'user_profile' user.id %}"> {{ issue.requester }} </a><strong> On:</strong> {{ issue.created_on }}</div>
+            <strong>Assigned to:</strong>  <a href="#">{{ issue.assignee }}</a>
+            <div><strong>Status:</strong> {{ issue.status }}</div>
             <hr>
-            <div><strong>Created by:</strong> {{ issue.requester }} <strong>On:</strong> {{ issue.created_on }}</div>
-            <strong>Assigned to:</strong>  <a href="{% url 'user_profile' user.id %}">{{ issue.assignee }}</a>
             <p></p>
             <p class="card-text">{{ issue.description|truncatechars:350 }}</p> {# There are more filters out there! #}
                 <div class="author-options">
@@ -49,5 +53,9 @@
     </div>
     <br />
     {% endfor %}
+    {% else %}
+    <h1>Oh, yay!</h1>
+    <h1>Currently no tasks!</h1>
+    {% endif %}
 </ul>
 {% endblock content %}

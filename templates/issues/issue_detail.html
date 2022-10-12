@@ -6,13 +6,18 @@
 
 {% block content %}
     <p></p>
+
     <div class="card box">
-        <div id="status">({{ issue.status }})</div>
+        <div id="status">
+            <strong> {{ issue.title }} </strong>
+            <h6 class="card-subtitle mb-2 ">( {{ issue.summary }} )</h6>
+        </div>
         <div class="card-body">
-            <h1 id="title">{{ issue.title }}</h1>
-            <h4 id="subtitle" class="card-subtitle mb-2 text-muted">{{ issue.summary }}</h4>
-            <div><strong>Created by:</strong> {{ issue.requester }} <strong>On:</strong> {{ issue.created_on }}</div>
-            <strong>Assigned to:</strong>  {{ issue.assignee }}
+
+            <div><strong>Created by:</strong> <a href="{% url 'user_profile' user.id %}"> {{ issue.requester }} </a><strong> On:</strong> {{ issue.created_on }}</div>
+            <strong>Assigned to:</strong>  <a href="#">{{ issue.assignee }}</a>
+            <div><strong>Status:</strong> {{ issue.status }}</div>
+            <hr>
             <p></p>
             <p class="card-text">{{ issue.description}}</p> {# There are more filters out there! #}
                 <div class="author-options">

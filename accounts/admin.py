@@ -1,40 +1,26 @@
 # from django.contrib import admin
-# from django.contrib.auth import get_user_model
-# from django.contrib.auth.models import Group
 # from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 
-# from .forms import UserAdminCreationForm, UserAdminChangeForm
+# from .models import CustomUser, CustomUserAdmin
+# from django.views.generic import ListView, DetailView, TemplateView
+# from django.contrib.auth.models import User
+# # from accounts.managers import CustomUserManager
+# # admin.site.unregister(User)
+# # # Remove Group Model from admin. We're not using it.
 
-# User = get_user_model()
-
-# # Remove Group Model from admin. We're not using it.
-# admin.site.unregister(Group)
-
+# from my_user_profile_app.models import Employee
+# # Define an inline admin descriptor for Employee model
+# # which acts a bit like a singleton
+# class EmployeeInline(admin.StackedInline):
+#     model = Employee
+#     can_delete = False
+#     verbose_name_plural = 'employee'
+# # Define a new User admin
 # class UserAdmin(BaseUserAdmin):
-#     # The forms to add and change user instances
-#     form = UserAdminChangeForm
-#     add_form = UserAdminCreationForm
+#     inlines = (EmployeeInline,)
 
-#     # The fields to be used in displaying the User model.
-#     # These override the definitions on the base UserAdmin
-#     # that reference specific fields on auth.User.
-#     list_display = ['email', 'admin']
-#     list_filter = ['admin']
-#     fieldsets = (
-#     (None, {'fields': ('email', 'password')}),
-#     ('Personal info', {'fields': ()}),
-#     ('Permissions', {'fields': ('admin',)}),
-#     )
-#     # add_fieldsets is not a standard ModelAdmin attribute. UserAdmin
-#     # overrides get_fieldsets to use this attribute when creating a user.
-#     add_fieldsets = (
-#     (None, {
-#     'classes': ('wide',),
-#     'fields': ('email', 'password1', 'password2')}
-#     ),
-#     )
-#     search_fields = ['email']
-#     ordering = ['email']
-#     filter_horizontal = ()
-
+# # Re-register UserAdmin
+# admin.site.unregister(User)
 # admin.site.register(User, UserAdmin)
+
+# # admin.site.register(CustomUser, CustomUserAdmin)

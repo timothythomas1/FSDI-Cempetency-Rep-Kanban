@@ -4,4 +4,3 @@ from .models import Issue
 
 # Register your models here.
 admin.site.register(Issue)
-# admin.site.register(UserList)
