@@ -33,10 +33,10 @@
                         </a>
                         <ul class="dropdown-menu">
                             <li><a class="dropdown-item" aria-current="page" href="{% url 'new' %}">Create Issue</a></li>
-                            <li><a class="dropdown-item" aria-current="page" href="#">My Issued</a></li>
+                            <li><a class="dropdown-item" aria-current="page" href="{% url 'my_issued_list' %}">My Issued</a></li>
                             <li><hr class="dropdown-divider"></li>
                             <li><a class="dropdown-item" aria-current="page" href="{% url 'admin:index' %}"><strong>Admin </strong></a></li>
-                            <li><a class="dropdown-item" aria-current="page" href="#">My Profile</a></li>
+                            <li><a class="dropdown-item" aria-current="page" href="{% url 'user_profile' user.id %}">My Profile</a></li>
                             <li><a class="dropdown-item" aria-current="page" href="{% url 'password_change' %}">Password Change</a></li>
                             <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
                         </ul>
@@ -76,7 +76,7 @@
                 <div class="">
                     <a id="log-in-icon" 
                        href="{% url 'login' %}" 
-                       class="card-link btn btn-primary btn-md active"
+                       class="card-link btn btn-success btn-md active"
                     >
                         <i class="fa-solid fa-arrow-right-to-bracket"></i>
                     </a>
@@ -86,7 +86,7 @@
                 {% else %}
                 <div class="">
                     <a id="log-in-icon" 
-                       href="{% url 'login' %}" 
+                       href="{% url 'logout' %}" 
                        class="card-link btn btn-danger btn-md active"
                     >
                     <i class="fa-solid fa-arrow-right-from-bracket"></i>

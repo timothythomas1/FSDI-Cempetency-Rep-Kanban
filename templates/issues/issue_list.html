@@ -26,12 +26,19 @@
             <p></p>
             <p class="card-text">{{ issue.description|truncatechars:350 }}</p> {# There are more filters out there! #}
                 <div class="author-options">
-                    {% if user == issue.assignee %}
+                    {% if user == issue.assignee and user != issue.requester or user.role == 'Manager' or user.is_superuser or user == issue.requester and issue.requester != issue.assignee %}
                     <a href="#" class="btn btn-sm btn-primary">
                         <i class="fa-regular fa-message"></i>
                     </a>
                     {% endif %}
-                    {% if user == issue.requester %}
+
+                    {% if user.role == 'Agent' and issue.assignee == None %}
+                    <a href="{% url 'issue_work' issue.id %}" class="btn btn-primary btn-sm">
+                        Work Task</i>
+                    </a>
+                    {% endif %}
+
+                    {% if user == issue.requester or user.is_superuser%}
                     <a href="{% url 'delete' issue.id %}" class="btn btn-danger btn-sm">
                         <i class="fa-solid fa-dumpster"></i>
                     </a>

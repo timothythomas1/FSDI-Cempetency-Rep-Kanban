@@ -1,18 +1,16 @@
 {% extends 'base.html' %}
 
 {% block title %}
-    Groups
+    Work Issue
 {% endblock title %}
 
 {% block content %}
     <div id="update-container">
-        <h1><i class="fa-solid fa-user-astronaut"></i>{{user.username}}'s Profile</h1>
-        <h1>({{user.role}})</h1>
-
+        <h1>Work Task</h1>
         <form method="POST">
             {% csrf_token %}
             {{ form.as_p }}
-            <input type="submit" value="Update" class="btn btn-dark btn-md" id="update-post-btn">
+            <input type="submit" value="Work Task" class="btn btn-success btn-md" id="update-post-btn">
         </form>
     </div>
 {% endblock content %} 

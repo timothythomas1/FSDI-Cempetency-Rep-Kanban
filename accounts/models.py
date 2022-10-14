@@ -1,19 +1,26 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 
-
-
 class CustomUser(AbstractUser):
     email = models.EmailField(blank=True, default='', unique=True)
     first_name = models.CharField(max_length=255, blank=True, default='')
     last_name = models.CharField(max_length=255, blank=True, default='')
     username = models.CharField(max_length=255, blank=True, default='', unique=True)
-    role = models.PositiveSmallIntegerField(choices= (
-        (1,'Customer'),
-        (2,'Agent'),
-        (3,'Manager'),
-    ),
-    blank=True, null=True, default=1)
+    CUSTOMER = 'Customer'
+    AGENT = 'Agent'
+    MANAGER = 'Manager'
+    ROLE_CHOICES = [
+        (CUSTOMER,'Customer'), 
+        (AGENT, 'Agent'), 
+        (MANAGER,'Manager'),
+        ]
+
+    role = models.CharField(
+        max_length=255,
+        choices=ROLE_CHOICES,
+        blank=True, 
+        null=True, 
+        default=CUSTOMER)
       # You can create Role model separately and add ManyToMany if user has more than one role
 
 # class User(AbstractUser):

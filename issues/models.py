@@ -1,9 +1,10 @@
 
+from email.policy import default
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.urls import reverse
 from django import forms
-from django.contrib.auth.models import Group, AbstractUser
+from django.contrib.auth.models import Group
 from django.conf import settings
 
 class Status(models.Model):
@@ -27,7 +28,6 @@ class Urgency(models.Model):
     def __str__(self):
         return self.name
 
-
 # Now create a custom migration for status to communicate to. 
 # We are not putting this into the Status class due to later maintainability concerns. (Refactoring?)
 class Issue(models.Model):
@@ -42,7 +42,9 @@ class Issue(models.Model):
     # created_on = models.DateTimeField(default=datetime.now)
     status = models.ForeignKey(
         Status, 
-        on_delete=models.CASCADE
+        on_delete=models.CASCADE,
+        null=True, 
+        blank=True,
     )
     impact = models.ForeignKey(
         Impact, 
@@ -72,8 +74,6 @@ class Issue(models.Model):
 #         model = User
 #         list_display = ['username']
 #         fields = ['username', 'first_name', 'last_name', 'email']
-
-
 
 def __str__(self):
     return self.title
