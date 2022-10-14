@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     "issues",
 ]
 
+
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -131,5 +132,4 @@ LOGOUT_REDIRECT_URL = 'login'
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
-
-
+AUTH_USER_MODEL = "accounts.CustomUser"

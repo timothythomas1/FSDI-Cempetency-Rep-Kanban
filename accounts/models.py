@@ -1,11 +1,75 @@
-# from django.db import models
-# from django.contrib.auth.models import AbstractUser, AbstractBaseUser
-# from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin  # This is needed for object oriented programming. A class should only inherit one class. A Mixin is another class that can be inherited from allwoing for a class to inherit more classes essentially.
-# from django.contrib.auth.admin import UserAdmin
-# from django.views.generic.edit import DeleteView, CreateView, UpdateView
-# from .views import CustomUserCreationForm, CustomUserChangeForm
-# from django.contrib.auth.base_user import BaseUserManager
-# # from django.db import models
+from django.db import models
+from django.contrib.auth.models import AbstractUser
+
+
+
+class CustomUser(AbstractUser):
+    email = models.EmailField(blank=True, default='', unique=True)
+    first_name = models.CharField(max_length=255, blank=True, default='')
+    last_name = models.CharField(max_length=255, blank=True, default='')
+    username = models.CharField(max_length=255, blank=True, default='', unique=True)
+    role = models.PositiveSmallIntegerField(choices= (
+        (1,'Customer'),
+        (2,'Agent'),
+        (3,'Manager'),
+    ),
+    blank=True, null=True, default=1)
+      # You can create Role model separately and add ManyToMany if user has more than one role
+
+# class User(AbstractUser):
+#     """
+#     Users within the Django authentication system are represented by this
+#     model.
+
+#     Username and password are required. Other fields are optional.
+#     """
+#     def create_user(self, email, username, first_name, last_name, group, password, **extra_fields):
+#         if not email:
+#             raise ValueError('Your Email must be set')
+#         email = self.normalized_email(email)
+#         if not username:
+#             raise ValueError('Your Username must be set')
+#         username = models.CharField(verbose_name='username', max_length=255, unique=True)
+#         email = models.EmailField( verbose_name='email address', max_length=255, unique=True)
+#         first_name = models.CharField( verbose_name='first name', max_length=255, unique=False)
+#         last_name = models.CharField( verbose_name='last name', max_length=255, unique=False)
+#         is_active = models.BooleanField(default=True)
+#         is_staff = models.BooleanField(default=False)
+#         date_joined = models.DateTimeField(auto_now_add=True)
+#         user = self.model(
+#             email=email,
+#             usernam=username,
+#             first_name=first_name,
+#             last_name=last_name,
+#             group=group
+#             **extra_fields,
+#             )
+#         user.set_password(password)
+#         user.save()
+#         return user
+#     class Meta(AbstractUser.Meta):
+#         swappable = "AUTH_USER_MODEL"
+
+# class CustomUser(AbstractBaseUser, PermissionRequiredMixin):
+#     username = models.CharField(verbose_name='username', max_length=255, unique=True)
+#     email = models.EmailField( verbose_name='email address', max_length=255, unique=True)
+#     first_name = models.CharField( verbose_name='first name', max_length=255, unique=False)
+#     last_name = models.CharField( verbose_name='last name', max_length=255, unique=False)
+#     is_active = models.BooleanField(default=True)
+#     is_staff = models.BooleanField(default=False)
+#     date_joined = models.DateTimeField(auto_now_add=True)
+
+#     USERNAME_FIELD = 'username'
+#     REQUIRED_FIELDS = [] # Email & Password are required by default.
+
+#     objects = CustomUserManager()
+
+#     def __str__(self):
+#         return self.username
+
+
+
+
 
 # class CustomUserManager(BaseUserManager):
 #     """
@@ -44,22 +108,6 @@
 #         return self.create_user(email, username, first_name, last_name, group, password, **extra_fields)
 
 
-# class CustomUser(AbstractBaseUser, PermissionRequiredMixin):
-#     username = models.CharField(verbose_name='username', max_length=255, unique=True)
-#     email = models.EmailField( verbose_name='email address', max_length=255, unique=True)
-#     first_name = models.CharField( verbose_name='first name', max_length=255, unique=False)
-#     last_name = models.CharField( verbose_name='last name', max_length=255, unique=False)
-#     is_active = models.BooleanField(default=True)
-#     is_staff = models.BooleanField(default=False)
-#     date_joined = models.DateTimeField(auto_now_add=True)
-
-#     USERNAME_FIELD = 'username'
-#     REQUIRED_FIELDS = [] # Email & Password are required by default.
-
-#     objects = CustomUserManager()
-
-#     def __str__(self):
-#         return self.username
 
 # class CustomUserAdmin(UserAdmin, UpdateView):
 #     add_form: CustomUserCreationForm

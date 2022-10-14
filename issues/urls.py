@@ -6,8 +6,7 @@ from .views import (
     IssueDeleteView,
     IssueUpdateView,
     MyIssuedListView,
-    UserProfileUpdateView,
-    # User,
+    # UserProfileUpdateView,
     # UsersView,
     # DraftIssueListView,
     # ArchivedIssueListView,
@@ -20,5 +19,5 @@ urlpatterns = [
     path('<int:pk>/edit/', IssueUpdateView.as_view(), name='edit'),
     path('<int:pk>/delete/', IssueDeleteView.as_view(), name='delete'),
     path('issued/', MyIssuedListView.as_view(), name='my_issued_list'),
-    path('user/<int:pk>/profile/', UserProfileUpdateView.as_view(), name='user_profile'),
+    # path('user/<int:pk>/profile/', UserProfileUpdateView.as_view(), name='user_profile'),
 ]

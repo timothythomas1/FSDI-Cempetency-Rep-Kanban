@@ -2,9 +2,10 @@ from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.edit import DeleteView, CreateView, UpdateView
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin, PermissionRequiredMixin # This is needed for object oriented programming. A class should only inherit one class. A Mixin is another class that can be inherited from allwoing for a class to inherit more classes essentially.
 from django.urls import reverse_lazy
-from django.contrib.auth.models import User, Group
+
 from django.contrib.auth import get_user_model
-from .models import Issue, UserProfileForm
+from .models import Issue
+
 # from .managers import CustomUserManager
 
 class IssueDetailView(DetailView):
@@ -59,28 +60,28 @@ class IssueUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):  # R
         issue_obj = self.get_object()
         return issue_obj.requester == self.request.user
 
-class UserProfileUpdateView(UpdateView):
-    template_name = "issues/user_profile.html"
-    success_url = reverse_lazy("issue_list")
-    model = User
+# class UserProfileUpdateView(UpdateView):
+#     template_name = "issues/user_profile.html"
+#     success_url = reverse_lazy("issue_list")
+#     model = User
 
-    def get_initial(self):
-        initial = super(UserProfileUpdateView, self).get_initial()
-        try:
-            current_group = self.object.groups.get()
-        except:
-            # exception can occur if the edited user has no groups
-            # or has more than one group
-            pass
-        else:
-            initial['group'] = current_group.pk
-        return initial
+#     def get_initial(self):
+#         initial = super(UserProfileUpdateView, self).get_initial()
+#         try:
+#             current_group = self.object.groups.get()
+#         except:
+#             # exception can occur if the edited user has no groups
+#             # or has more than one group
+#             pass
+#         else:
+#             initial['group'] = current_group.pk
+#         return initial
 
-    def get_form_class(self):
-        return UserProfileForm
+#     def get_form_class(self):
+#         return UserProfileForm
 
-    def form_valid(self, form):
-        self.object.groups.clear()
-        self.object.groups.add(form.cleaned_data['group'])
-        return super(UserProfileUpdateView, self).form_valid(form)
+#     def form_valid(self, form):
+#         self.object.groups.clear()
+#         self.object.groups.add(form.cleaned_data['group'])
+#         return super(UserProfileUpdateView, self).form_valid(form)
     
